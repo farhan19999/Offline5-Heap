@@ -11,8 +11,15 @@ private :
 public:
     Heap(int maxSize)
     {
-        this->maxSize = maxSize;
+        this->maxSize = maxSize+1;
         this->tree = new int[maxSize];
+    }
+
+    Heap(vector<int>&v)
+    {
+        this->maxSize = v.size()+1;
+        this->tree = new int[maxSize];
+        for(int i = 0; i<v.size() ; i++ )insert(v[i]);
     }
 
     void swap(int OldParentIndex, int OldChildIndex )
@@ -24,10 +31,10 @@ public:
 
     void insert(int elem)
     {
-        tree[length++] = elem;
-        int last = length-1;
+        tree[++length] = elem;
+        int last = length;
 
-        while(tree[last/2] < tree[last] && last != 0)
+        while(tree[last/2] < tree[last] && last != 1)
         {
             swap(last/2, last);
             last = last/2;
@@ -36,43 +43,17 @@ public:
 
     int getMax()
     {
-        return tree[0];
+        return tree[1];
     }
 
     void deleteKey()
     {
         if(isEmpty())return;
-        cout<<"deleting...."<<endl;
-        tree[0] = tree[length-1];
-        tree[length-1] = -1;
+        tree[1] = tree[length];
+        tree[length] = -1;
         length--;
 
-        int last = 0 ;
-        while((last*2)<length)
-        {
-            if(last*2 == length-1)
-            {
-                if(tree[last] < tree[last*2])
-                {
-                    swap(last, last*2);
-                    last = last*2;
-                }
-                continue;
-            }
-            if(tree[last] > tree[last*2] && tree[last] > tree[last*2 + 1])break;
-
-            if(tree[last*2] > tree[last*2+1] && tree[last*2] > tree[last])
-            {
-                swap(last, last*2);
-                last = last*2;
-            }
-            else if(tree[last*2 +1] > tree[last*2] && tree[last*2 +1] > tree[last])
-            {
-                swap(last, last*2);
-                last = last*2;
-            }
-            else break;
-        }
+        max_heapify(1);
     }
     int size()
     {
@@ -83,4 +64,31 @@ public:
         return length == 0;
     }
 
+    void max_heapify(int idx)
+    {
+        int l = idx*2;
+        int r = idx*2 + 1;
+
+        if(r<=length && tree[r] > tree[idx] && tree[r] > tree[l])
+        {
+            swap(idx, r);
+            max_heapify(r);
+        }
+        else if(l<=length && tree[l] > tree[idx])
+        {
+            swap(idx, l);
+            max_heapify(l);
+        }
+    }
+
 };
+
+void heapsort(vector<int>&v)
+{
+    Heap h(v);
+    for(int i = 0 ; i<v.size() ; i++)
+    {
+        v[i] = h.getMax();
+        h.deleteKey();
+    }
+}
