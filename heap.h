@@ -64,7 +64,7 @@ public:
         tree[length] = -INF;    //removing last element
         length--;
 
-        max_heapify(1);         // max heapifing form the root
+        max_heapify(1);         // max heapifing from the root
     }
 
     int size()
