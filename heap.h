@@ -2,6 +2,7 @@
 using namespace std;
 #define INF 1000000000
 
+
 class Heap
 {
 private :
@@ -9,7 +10,6 @@ private :
     int* tree;
     int length = 0;
 public:
-
     Heap(int maxSize)
     {
         this->maxSize = maxSize;
@@ -33,6 +33,7 @@ public:
 
     void insert(int elem)
     {
+
         if(length == maxSize)
         {
             cout<<"Heap is full"<<endl;
@@ -66,7 +67,7 @@ public:
 
         max_heapify(1);         // max heapifing from the root
     }
-
+  
     int size()
     {
         return length;

@@ -1,0 +1,8 @@
+Heap(int n) : n = maximum size of heap
+insert(int item) : inserting numbers in the heap
+size() :
+getMax() : returning the maximum number of the heap. 
+deleteKey() : deleting the root of the heap.
+heapsort(numbers); // You need to implement this function in heap.h. You should use the heap class implemented by you to do this. Hint: the function declaration should be void heapsort(vector<int>&v);
+    // Now, "numbers" vector contains the numbers in descending order 
+ 
