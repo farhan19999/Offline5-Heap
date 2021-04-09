@@ -4,7 +4,7 @@ using namespace std;
 
 class Heap
 {
-private :
+private:
     int maxSize = 0;
     int* tree;
     int length = 0;
